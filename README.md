@@ -1,6 +1,5 @@
 # Melon Playlist Continuation - 베이스라인 코드
-카카오 아레나 Melon Playlist Continuation 대회 참가자에게 제공되는 예제 코드입니다. 간단한 추천 모델과 평가 코드가 포함되어 있습니다. 이 예제 코드에서는 Mel-spectrogram을 제외한 데이터를 사용하므로, 데이터셋 중 arena\_mel\_{0~39}.tar 파일은 이 예제를 실행하기 위해 다운받을 필요가 없습니다. 
-
+카카오 아레나 Melon Playlist Continuation 대회 참가자에게 제공되는 예제 코드입니다. 간단한 추천 모델과 평가 코드가 포함되어 있습니다. 이 예제 코드에서는 Mel-spectrogram을 제외한 데이터를 사용하므로, 데이터셋 중 arena\_mel\_{0~39}.tar 파일은 이 예제를 실행하기 위해 다운받을 필요가 없습니다. 다음 예제는 주어진 train.json을 **새로운 train.json 과 val.json 으로** 8:2 의 비율로 나누어 로컬에서 테스팅 하는 코드로, **아레나에 제출 시 여기서 나뉘어진 val.json을 사용하면 틀린 결과가 나오니 아레나에서 다운받은 val.json을 사용해서 정답을 생성하시길 바랍니다.**
 
 ## 데이터 분할
 
@@ -22,11 +21,11 @@ $> tree -d
 └── res
 ```
 
-- 주어진 train.json을 train/val 8:2로 나누며, 여기서 나뉘어진 val은 문제 파일인 questions/val.json과 답안 파일인 answers/val.json으로 나뉘게 되며, 전체의 80%에 해당하는 새로운 train은 orig/train.json 에 저장됩니다.
+- 주어진 train.json을 train/val 8:2로 나누며, 여기서 나뉘어진 val은 문제 파일인 questions/val.json과 답안 파일인 answers/val.json으로 나뉘게 되고, 전체의 80%에 해당하는 새로운 train은 orig/train.json 에 저장됩니다.
 
 ## 추천 결과 생성
 
-본 리포지토리에는 두가지 간단한 추천 모델이 제공됩니다. 
+본 리포지토리에는 두가지 간단한 추천 모델이 제공됩니다. 아래에 나오는 부분은 위에서 새로 만들어진 train / val 셋에 대해 추천 결과를 만드는 방법이므로, **아레나에 제출 시 `arena_data/questions/val.json` 이 아닌 `res/val.json` 을 사용해야 정확한 답을 얻을 수 있습니다**
 
 - `most_popular.py` 는 주어진 전체 플레이리스트에서 가장 많이 등장한 곡과 태그를 모든 문제에 대해서 답안으로 내놓는 모델입니다. 결과는 아래와 같이 생성할 수 있습니다. 
 	
@@ -53,7 +52,7 @@ $> tree -d
 
 아레나에 제출하기 전에 본인이 만든 문제 / 정답 세트로 점수를 알아볼 수 있습니다. 위에서 생성된 추천 결과는 아래 커맨드로 평가할 수 있습니다.
 	
-```
+```bash
 $> python evaluate.py evaluate \
 	--gt_fname=arena_data/answers/val.json \
 	--rec_fname=arena_data/results/results.json 
