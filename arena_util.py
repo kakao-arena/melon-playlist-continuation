@@ -10,7 +10,7 @@ import numpy as np
 
 def write_json(data, fname):
     def _conv(o):
-        if isinstance(o, np.int64) or isinstance(o, np.int32): # add int32 case for Windows
+        if isinstance(o, (np.int64, np.int32)): # add int32 case for Windows
             return int(o)
         raise TypeError
 
