@@ -22,7 +22,7 @@ def write_json(data, fname):
 
 
 def load_json(fname):
-    with open(fname) as f:
+    with open(fname, encoding='utf-8') as f:
         json_obj = json.load(f)
 
     return json_obj
